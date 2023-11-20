@@ -2,20 +2,34 @@ package com.example.reciclerviewexample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.reciclerviewexample.adapter.CocheAdapter
+import com.example.reciclerviewexample.CocheProvider
+import com.example.reciclerviewexample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private  lateinit var  binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         initRecyclerView()
     }
-    fun initRecyclerView(){
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerCoches)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = CocheAdapter(CocheProvider.cocheList)
+    private fun initRecyclerView(){
+        val manager = LinearLayoutManager(this)
+        binding.recyclerCoches.layoutManager = manager
+        binding.recyclerCoches.adapter = CocheAdapter(CocheProvider.cocheList) { coche ->
+            onItemSelected(
+                coche
+            )
+        } //le paso un objeto coche
+    }
+
+    fun onItemSelected(coche: Coche){
+        Toast.makeText(this, coche.coche, Toast.LENGTH_SHORT).show()
     }
 }

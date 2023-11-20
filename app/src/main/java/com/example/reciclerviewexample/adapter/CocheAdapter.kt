@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.reciclerviewexample.Coche
 import com.example.reciclerviewexample.R
 
-class CocheAdapter(private val cocheList:List<Coche>) : RecyclerView.Adapter<CocheViewHolder>() {
+class CocheAdapter( val cocheList:List<Coche>, private  val onClickListener:(Coche) -> Unit) : RecyclerView.Adapter<CocheViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CocheViewHolder {
         //aquí le paso el item (el layout que va a modificar)
@@ -18,6 +18,6 @@ class CocheAdapter(private val cocheList:List<Coche>) : RecyclerView.Adapter<Coc
 
     override fun onBindViewHolder(holder: CocheViewHolder, position: Int) {
         val item = cocheList[position]
-        holder.render(item)
+        holder.render(item, onClickListener)
     }
 }
